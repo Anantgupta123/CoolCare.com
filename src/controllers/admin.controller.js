@@ -131,6 +131,15 @@ async function loginAdmin(req,res){
         })
     }
 
+    const vrifyAdmin = await admin.verify
+    
+    if(!vrifyAdmin){
+
+        return res.status(400).json({
+            message:"This admin is not verify"
+        })
+    }
+
     const validPassword = await bcrypt.compare(password,admin.password);
 
     if(!validPassword){

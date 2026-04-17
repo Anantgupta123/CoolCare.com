@@ -12,9 +12,10 @@ app.use(cookieParser())
 
 
 
-// Require all controllers
+// Require all controllers Admin
 const userRouter = require("./routes/user.route.js")
 const adminRouter  = require("./routes/admin.route.js")
+const serviceRouter = require("./routes/service.route.js")
 
 
 
@@ -22,6 +23,7 @@ const adminRouter  = require("./routes/admin.route.js")
 //Use of all routes
 app.use("/api/user",userRouter);
 app.use("/api/admin",adminRouter)
+app.use("/api/service",serviceRouter)
 
 
 
