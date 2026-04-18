@@ -18,7 +18,7 @@ async function verifyAdmin(req,res,next){
     
         const decoded = await jwt.verify(token,process.env.JWT_SECRET)
     
-        const admin = await adminModel.findById(decoded.email)
+        const admin = await adminModel.findOne({email:decoded.email})
 
         req.admin = admin
 

@@ -8,9 +8,9 @@ const sendPhoto = new imagekit({
 
  async function uploadPhoto(file,filename){
 
-    const result = sendPhoto.upload({
+    const result =await sendPhoto.upload({
         file:file,
-        filename:filename
+        fileName:filename
     })
 
     return result

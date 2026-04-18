@@ -11,16 +11,13 @@ router.post("/create",
     serviceController.cresteService
 )
 
-router.post("/update",
+router.patch("/:id",
     adminMiddleware.verifyAdmin,
     photoSender.single("photo"),
     serviceController.updateSevice
 )
 
-router.patch("/:id",
-    adminMiddleware.verifyAdmin,
-    serviceController.updateSevice
-)
+
 
 router.delete("/:id",
     adminMiddleware.verifyAdmin,

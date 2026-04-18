@@ -5,13 +5,13 @@ const {v4:uuid} = require("uuid")
 async function cresteService(req,res){
 
    try {
-     const upload = uploadPhoto(req.file.buffer,uuid())
+     const upload =await uploadPhoto(req.file.buffer,`${uuid()}.jpg`)
  
      const photo = upload.url
  
      const {name,price,description} = req.body;
  
-     if(!photo || !name || !price || !description){
+     if( !name || !price || !description){
  
          return res.status(400).json({
              message:"Please enter all data"
@@ -40,7 +40,7 @@ async function cresteService(req,res){
 
    } catch (error) {
 
-    console.log("some went wrong in creare service",error)
+    console.log("some went wrong in create  service controller",error)
     
    }
 
@@ -48,25 +48,35 @@ async function cresteService(req,res){
 
 async function updateSevice(req,res){
 
-    const {id} = req.params
+    try {
+        const {id} = req.params
+    
+        const upload =await uploadPhoto(req.file.buffer,`${uuid()}.jpg`); //req.file.buffer
+    
+        const photo = upload.url
+    
+        const {name , price, description} = req.body;
+    
+        const updatedService = await serviceModel.findByIdAndUpdate(
+            id,
+            {
+            photo,
+            name,
+            price,
+            description
+        },
+        {new:true}
+        ) 
+    
+        res.status(200).json({
+            message:"Service data updated successfully",
+            updatedService
+        })
+    } catch (error) {
 
-    const upload = uploadPhoto(req.file.buffer,uuid());
-
-    const photo = upload.url
-
-    const {name , price, description} = req.body;
-
-    const updatedService = await serviceModel.findByIdAndUpdate(
-        id,
-        photo,
-        name,
-        price
-    ) 
-
-    res.status(200).json({
-        message:"Service data updated successfully",
-        updatedService
-    })
+        console.log("error in updated service " , error)
+        
+    }
 
 }
 
