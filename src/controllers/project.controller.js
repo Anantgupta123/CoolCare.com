@@ -71,7 +71,8 @@ async function getAllProject(req,res){
     const getproject = await projectModel.find();
     
     res.status(200).json({
-        message:"All peoject"
+        message:"All peoject",
+        getproject
     })
 }
 
