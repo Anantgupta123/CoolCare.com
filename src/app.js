@@ -16,6 +16,7 @@ app.use(cookieParser())
 const userRouter = require("./routes/user.route.js")
 const adminRouter  = require("./routes/admin.route.js")
 const serviceRouter = require("./routes/service.route.js")
+const usedAcRouter = require("./routes/usedAc.route.js")
 
 
 
@@ -24,6 +25,7 @@ const serviceRouter = require("./routes/service.route.js")
 app.use("/api/user",userRouter);
 app.use("/api/admin",adminRouter)
 app.use("/api/service",serviceRouter)
+app.use("/api/Ac",usedAcRouter)
 
 
 
