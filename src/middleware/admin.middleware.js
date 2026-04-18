@@ -6,7 +6,7 @@ const jwt = require("jsonwebtoken")
 async function verifyAdmin(req,res,next){
 
     try {
-        const token = req.cookies?.token || req.hedres.authrization?.split(" ")[1]
+        const token = req.cookies?.token  //req.headers?.authorization?.split(" ")[1];
     
         if(!token){
     
@@ -14,10 +14,11 @@ async function verifyAdmin(req,res,next){
                 message:"Token is not present"
             })
         }
+
     
-        const decoded = await jwt.verify(token,process.env.JWT_SECTER)
+        const decoded = await jwt.verify(token,process.env.JWT_SECRET)
     
-        const admin = await adminModel.findById(decoded.id)
+        const admin = await adminModel.findById(decoded.email)
 
         req.admin = admin
 

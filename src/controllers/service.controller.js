@@ -4,38 +4,45 @@ const {v4:uuid} = require("uuid")
 
 async function cresteService(req,res){
 
-    const upload = uploadPhoto(req.file.buffer,uuid())
+   try {
+     const upload = uploadPhoto(req.file.buffer,uuid())
+ 
+     const photo = upload.url
+ 
+     const {name,price,description} = req.body;
+ 
+     if(!photo || !name || !price || !description){
+ 
+         return res.status(400).json({
+             message:"Please enter all data"
+         })
+     }
+ 
+     const service = await serviceModel.findOne({name});
+ 
+     if(service){
+         return res.status(400).json({
+             message:"This service is alredy exist"
+         })
+     }
+ 
+     const newService = await serviceModel.create({
+         photo,
+         name,
+         price,
+         description
+     })
+ 
+     res.status(201).json({
+         message:"Created successfully service",
+         newService
+     })
 
-    const photo = upload.url
+   } catch (error) {
 
-    const {name,price,description} = req.body;
-
-    if(!photo || !name || !price || !description){
-
-        return res.status(400).json({
-            message:"Please enter all data"
-        })
-    }
-
-    const service = await serviceModel.findOne({name});
-
-    if(service){
-        return res.status(400).json({
-            message:"This service is alredy exist"
-        })
-    }
-
-    const newService = await serviceModel.create({
-        photo,
-        name,
-        price,
-        description
-    })
-
-    res.status(201).json({
-        message:"Created successfully service",
-        newService
-    })
+    console.log("some went wrong in creare service",error)
+    
+   }
 
 }
 

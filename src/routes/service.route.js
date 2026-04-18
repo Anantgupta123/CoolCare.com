@@ -5,7 +5,7 @@ const photoSender = require("../utils/multer.util.js")
 
 const router = express.Router()
 
-router.post("/creste",
+router.post("/create",
     adminMiddleware.verifyAdmin,
     photoSender.single("photo"),
     serviceController.cresteService

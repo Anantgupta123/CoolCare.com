@@ -84,7 +84,7 @@ async function vrifyAdmin(req,res){
 
      const checkpassword  = await bcrypt.compare(otp,adminOtp.otp)
 
-     console.log(checkpassword)
+     
  
      if(!checkpassword){
          return res.status(400).json({
