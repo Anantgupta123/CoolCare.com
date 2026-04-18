@@ -18,7 +18,7 @@ async function shopAc(req,res){
         price,
         code,
         old,
-        weitght,
+        weight,
         description
     })
 
